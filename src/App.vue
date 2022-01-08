@@ -1,32 +1,50 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <router-view></router-view>
   </div>
 </template>
 
+<script>
+export default {
+  name: 'app',
+}
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
+  .input-group-text{
+    border-radius: 0 !important;
+  }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  button{
+    border-radius: 0 !important;
+    background-color: #3D8116 !important;
+  }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  input [type="checkbox"]{
+    width: 2rem !important;
+    height: 1.5rem !important;
+  }
+
+  .form-control {
+    border-radius: 0 !important;
+  }
+
+  .form-control:focus {
+    box-shadow: none !important;
+    border-color: #3D8116 !important;
+  }
+
+  .form-check-input {
+    border-radius: 0 !important;
+  }
+
+  .form-check-input:checked {
+    background-color: #3D8116 !important;
+  }
+
+  .form-check-input:focus {
+    border-color: none !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
 </style>
