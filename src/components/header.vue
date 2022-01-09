@@ -2,7 +2,7 @@
   <header
     class="navbar p-2 navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow-sm"
   >
-    <a class="col-md-3 col-lg-2 me-0 px-3 text-white" href="#">Organization name</a>
+    <a class="col-md-3 col-lg-2 me-0 px-3 text-white" href="#"></a>
 
     <div class="navbar-nav">
       <div class="d-flex">
