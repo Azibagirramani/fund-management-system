@@ -46,9 +46,20 @@ input [type="checkbox"] {
   outline: 0 !important;
   box-shadow: none !important;
 }
-
-
 a {
   text-decoration: none !important;
+}
+
+.btn:focus {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.bg-primary {
+  background-color: #3d8116 !important;
+}
+
+.text-primary {
+  color: #3d8116 !important;
 }
 </style>

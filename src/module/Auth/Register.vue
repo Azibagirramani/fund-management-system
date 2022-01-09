@@ -1,20 +1,30 @@
 <template>
   <section class="register">
     <div class="row w-100">
-      <div class="col-md-5 bg-dark vh-100"></div>
-      <div class="col-md-7 vh-100 d-flex align-items-center justify-content-center">
+      <div class="col-md-5 bg-primary vh-100 clip-shape"></div>
+      <div
+        class="col-md-7 vh-100 d-flex align-items-center justify-content-center"
+      >
         <form @submit.prevent="handleSignup(form)">
           <h1 class="h3 mb-3 fw-normal text-center">Sign up</h1>
-          <p class="fs--1 text-center">Start using FMS and improve fuddnd management.</p>
+          <p class="fs--1 text-center">
+            Start using FMS and improve fuddnd management.
+          </p>
 
           <div class="my-3">
             <div class="row">
-              <div class="col" v-for="(types, index) in accountTypes" :key="index">
+              <div
+                class="col"
+                v-for="(types, index) in accountTypes"
+                :key="index"
+              >
                 <AccountCard
                   :title="types.title"
                   :icon="types.icons"
                   :checkBox="index === currentIndex ? true : false"
-                  :baseEx="index === currentIndex ? 'card--selected' : ''"
+                  :baseEx="
+                    index === currentIndex ? 'card--selected text-primary' : ''
+                  "
                   @card-index="handleAccountType(index)"
                 />
               </div>
@@ -78,17 +88,18 @@
               id="flexCheckIndeterminate"
             />
             <label class="form-check-label" for="flexCheckIndeterminate">
-              I read and agree to <a href="/#">Terms and Conditions</a>
+              I read and agree to
+              <a href="/#" class="text-primary">Terms and Conditions</a>
             </label>
           </div>
 
           <div class="text-center mt-2">
             <button class="w-100 my-3 btn btn-lg text-white" type="submit">
-              Sign up
+              Next
             </button>
             <a href="#/" class="text-muted"
               >Already have an account ?
-              <router-link to="/auth"
+              <router-link to="/auth/login"
                 ><span class="text-primary">Sign in</span></router-link
               ></a
             >
@@ -133,12 +144,15 @@ export default {
     async handleSignup() {
       this.loader = true;
       try {
-        await axios.post(`https://fms-backend-v1.herokuapp.com/api/v1/users/createUser`, {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.password,
-        });
+        await axios.post(
+          `https://fms-backend-v1.herokuapp.com/api/v1/users/createUser`,
+          {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            password: this.password,
+          }
+        );
         this.$router.push("/auth/login");
         return;
       } catch (error) {
@@ -158,9 +172,12 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+.clip-shape {
+  clip-path: polygon(0 0, 100% 0, 70% 50%, 100% 100%, 0 100%, 0% 50%);
+}
 form {
-  width: 25rem;
+  width: 50%;
 }
 
 label {

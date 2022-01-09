@@ -8,7 +8,12 @@
         :checked="checkBox"
         v-if="checkBox"
       />
-      <input class="form-check-input checked" type="checkbox" :checked="checkBox" v-else />
+      <input
+        class="form-check-input checked"
+        type="checkbox"
+        :checked="checkBox"
+        v-else
+      />
       <h6 class="mt-2">{{ title }}</h6>
     </div>
   </div>
@@ -59,7 +64,7 @@ export default {
 }
 .checked {
   position: absolute;
-  left: 10rem;
+  left: 9.5rem;
   top: 0.8rem;
 }
 </style>

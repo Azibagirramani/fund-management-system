@@ -1,7 +1,9 @@
 <template>
   <div class="row w-100">
-    <div class="col-md-5 vh-100 bg-dark"></div>
-    <div class="col-md-7 vh-100 d-flex align-items-center justify-content-center">
+    <div class="col-md-5 vh-100 bg-primary clip-shape"></div>
+    <div
+      class="col-md-7 vh-100 d-flex align-items-center justify-content-center"
+    >
       <form @submit.prevent>
         <h1 class="h3 mb-3 fw-normal text-center">Sign in</h1>
         <p class="text-center">Welcome back! We are happy you like FMS</p>
@@ -81,19 +83,23 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+.clip-shape {
+  clip-path: polygon(0 0, 100% 0, 70% 50%, 100% 100%, 0 100%, 0% 50%);
+}
+
 .mt-40 {
   margin-top: 10rem !important;
 }
 
 form {
-  width: 55%;
+  width: 50%;
 }
 
-form a {
+/* form a {
   text-decoration: none;
   font-size: 0.8rem !important;
-}
+} */
 
 .form-signin .checkbox {
   font-weight: 400;
