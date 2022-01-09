@@ -1,11 +1,13 @@
 <template>
   <div>
-      <Header />
+    <Header />
     <div class="container-fluid">
       <div class="row">
         <NavBar />
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          <h1>content</h1>
+          <div class="mt-4">
+            <router-view></router-view>
+          </div>
         </main>
       </div>
     </div>
@@ -18,7 +20,7 @@ import Header from "../components/header.vue";
 export default {
   components: {
     NavBar,
-    Header
+    Header,
   },
 };
 </script>

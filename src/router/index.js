@@ -1,24 +1,26 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 
 // import Setup from "../module/Setup/index.vue";
 
 // routes
 import AuthRoutes from "../module/Auth/auth.routes";
 import OrgRoutes from "../module/Organisation/org.routes.js";
+import DashboardRoutes from "../views/dashboardRoutes.js";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-  linkExactActiveClass: 'active',
+  linkExactActiveClass: "active",
   scrollBehavior: () => ({ y: 0 }),
-  mode: 'history',
+  mode: "history",
   routes: [
     {
       path: "",
-      redirect: "/auth/register"
+      redirect: "/auth/register",
     },
     ...AuthRoutes,
-    ...OrgRoutes
-  ]
-})
+    ...OrgRoutes,
+    ...DashboardRoutes,
+  ],
+});

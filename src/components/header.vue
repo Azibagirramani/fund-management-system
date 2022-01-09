@@ -1,21 +1,23 @@
 <template>
   <header
-    class="navbar p-2 navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow-sm"
+    class="navbar p-2 navbar-dark sticky-top bg-white flex-md-nowrap p-0 shadow-sm"
   >
-    <a class="col-md-3 col-lg-2 me-0 px-3 text-white" href="#"></a>
+    <a
+      class="col-md-3 col-lg-2 me-0 px-3 text-dark badge rounded-pill bg-primary text-white bg-primary fs-6"
+      href="#"
+      >Show organisation name</a
+    >
 
     <div class="navbar-nav">
-      <div class="d-flex">
+      <div class="d-flex align-items-center">
         <img
-          class="img-fluid"
+          class="img-fluid logo"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/1200px-Google_Chrome_icon_%28September_2014%29.svg.png"
           alt="..."
-          height="20"
-          width="40"
         />
 
         <div class="nav-item text-nowrap">
-          <a class="nav-link px-3" href="#">Sign out</a>
+          <a class="nav-link px-3 text-dark" href="#">Sign out</a>
         </div>
       </div>
     </div>
@@ -26,7 +28,7 @@
 export default {};
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 /*
  * Navbar
  */
@@ -59,5 +61,10 @@ export default {};
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+.logo {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
 }
 </style>

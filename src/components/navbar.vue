@@ -1,13 +1,13 @@
 <template>
   <nav
     id="sidebarMenu"
-    class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+    class="col-md-3 col-lg-2 d-md-block bg-white sidebar collapse"
   >
     <div class="position-sticky pt-3">
       <ul class="nav flex-column">
         <li class="nav-item" v-for="(urls, index) in urls" :key="index">
-          <a class="nav-link active" aria-current="page" href="#">
-            <span data-feather="home"></span>
+          <a class="nav-link" aria-current="page" href="#">
+            <i :class="urls.icon" aria-hidden="true"></i>
             {{ urls.name }}
           </a>
         </li>
@@ -18,25 +18,33 @@
 
 <script>
 export default {
-  data(){
+  data() {
     return {
-      urls:[
+      urls: [
         {
+          icon: "fa fa-tachometer",
           name: "Dashboard",
-          path: "/demo"
+          path: "/demo",
         },
         {
-          name: "Projects",
-          path: "/demo"
-        },
-        {
+          icon: "fa fa-money",
           name: "Funds",
-          path: "/demo"
-        }
-      ]
-    }
-  }
-}
+          path: "/demo",
+        },
+        {
+          icon: "fa fa-list",
+          name: "Projects",
+          path: "/demo",
+        },
+        {
+          icon: "fa fa-cog",
+          name: "Settings",
+          path: "/demo",
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style lang="css" scoped>
@@ -75,7 +83,9 @@ export default {
 
 .sidebar .nav-link {
   font-weight: 500;
-  color: #333;
+  color: #a9abae;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
 .sidebar .nav-link .feather {
@@ -87,6 +97,11 @@ export default {
   color: #2470dc;
 }
 
+.sidebar .nav-link:hover {
+  color: #5c6168;
+  background-color: #eaf2fe;
+}
+
 .sidebar .nav-link:hover .feather,
 .sidebar .nav-link.active .feather {
   color: inherit;
@@ -95,5 +110,10 @@ export default {
 .sidebar-heading {
   font-size: 0.75rem;
   text-transform: uppercase;
+}
+
+i {
+  font-size: 1rem;
+  margin-right: 0.2rem;
 }
 </style>
