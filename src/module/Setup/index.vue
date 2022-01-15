@@ -5,7 +5,7 @@
       <div class="card shadow border-0 w-75">
         <div class="card-body">
           <form-wizard>
-            <tab-content title="Organization profile">
+            <tab-content title="Organization profile" :selected="true">
               <form @submit.prevent="onSubmit(form)">
                 <div class="mt-4">
                   <!-- Organization logo -->
@@ -184,37 +184,56 @@
             <tab-content title="Departments">
               <div>
                 <p class="text-muted">Add Departments</p>
-                <div class="row row-cols-3 g-0 gy-2 my-3">
-                  <div
-                    class="col"
-                    v-for="(dep, index) in departments"
-                    :key="index"
-                  >
-                    <span class="badge rounded-pill bg-light text-dark">
-                      {{ dep }}
-                      <i
-                        class="fa fa-times"
-                        aria-hidden="true"
-                        @click="removeDepartment(index)"
-                      ></i
-                    ></span>
-                  </div>
-                </div>
+
                 <div class="input-group mb-3 mt-4">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter department name"
-                    v-model="departmentsName"
-                  />
-                  <span class="input-group-text" @click="addDepartment"
-                    ><i class="fa fa-plus" aria-hidden="true"></i
-                  ></span>
+                  <form class="w-100" @submit.prevent="submitDepartment(dept)" action=" ">
+                    <label for=""> Select Location </label>
+                    {{ dept.departmentsName }}
+                    <v-select
+                      v-model="dept.locationId"
+                      label="locationName"
+                      :options="locations"
+                    ></v-select>
+                    <div class="row row-cols-3 g-0 gy-2 my-3">
+                      <div
+                        class="col"
+                        v-for="(dep, index) in moreDepartments"
+                        :key="index"
+                      >
+                        <span class="badge rounded-pill bg-light text-dark">
+                          {{ dep }}
+                          <i
+                            class="fa fa-times"
+                            aria-hidden="true"
+                            @click="removeDepartments(index)"
+                          ></i
+                        ></span>
+                      </div>
+                    </div>
+
+                    <div class="d-flex my-3">
+                      <div class="form-floating mb-3 w-100">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="DepartmentName"
+                          placeholder="Enter Department Name"
+                          v-model="moreDepartmentsName"
+                        />
+                        <label for="DepartmentName">Enter Department(s)</label>
+                      </div>
+                      <span class="input-group-text" @click="addDepartments"
+                        ><i class="fa fa-plus" aria-hidden="true"></i
+                      ></span>
+                    </div>
+
+                    <button type="submit" class="mt-2 btn btn-primary">Submit</button>
+                  </form>
                 </div>
               </div>
             </tab-content>
-            <tab-content title="Project managers" :selected="true">
-              <form>
+            <tab-content title="Add an Employee">
+                <form @submit.prevent="submitEmployee()">
                 <div class="row mt-4">
                   <p class="text-muted">Add Employees</p>
                   <div class="row">
@@ -360,6 +379,7 @@
                 </div>
 
                 <div class="d-flex gap-4">
+                  <Button title="Submit" ></Button>
                   <button type="submit" class="btn btn-primary">Submit</button>
                   <button type="reset" class="btn btn-danger">Clear</button>
                 </div>
@@ -379,6 +399,7 @@
 <script>
 //local registration
 import Header from "../../components/header.vue";
+import Button from "../../components/submitButton.vue";
 import { FormWizard, TabContent } from "vue-step-wizard";
 import "vue-step-wizard/dist/vue-step-wizard.css";
 
@@ -387,13 +408,21 @@ export default {
   components: {
     FormWizard,
     TabContent,
+    Button,
     Header,
   },
   data() {
     return {
       form: {},
+      dept: {},
+      locationId: [],
+      locations: [],
       businessLocation: [],
+      departmentProfile: false,
+      moreDepartments: [],
+      moreDepartmentsName: "",
       departments: [],
+      organisationId: "",
       projectManagers: [],
       projectManagersName: "",
       departmentsName: "",
@@ -403,14 +432,43 @@ export default {
   },
 
   methods: {
+    async submitEmployee(){
+      console.log(this.form)
+
+    },
+    async submitDepartment(form) {
+     
+      const newForm = this.moreDepartments.map((e) => ({
+        departmentName: e,
+        organisationId: this.organisationId,
+        locationId: form.locationId.locationId,
+      }));
+  
+
+      const { data } = await this.$axios.post(`departments/createDepartment/`, newForm);
+      console.log("response is", data);
+      this.getDepartments()
+    },
+//     async getDepartments(org,dept){
+// this.$axios.get(`/departments/getDepartment/UXTOPDV97EMJ5C2/1RT7SF811O67A77`)
+//     },
     // handle submit
     onSubmit(form) {
       console.log("Form submitted!", form);
     },
-    submitOrganisation(form) {
+    async submitOrganisation(form) {
       form["businessLocation"] = this.businessLocation;
       form["employeeId"] = "CRGBRZ9ZRADP35S";
-      this.$axios.post(`/organisation/createOrganisation`, form);
+      const { data } = await this.$axios.post(`/organisation/createOrganisation`, form);
+      this.organisationId = data.id;
+      this.getLocations(data.id);
+      this.form = {};
+      console.log("oragnisation is ", data);
+    },
+    async getLocations(e) {
+      const { data } = await this.$axios.get(`/business/getBusinessLocation/${e}`);
+      this.locations = data;
+      console.log("locastion are", data);
     },
 
     // get file
@@ -423,6 +481,10 @@ export default {
       this.businessLocation.push({ locationName: this.locationName });
       this.locationName = "";
     },
+    addDepartments() {
+      this.moreDepartments.push(`${this.moreDepartmentsName}`);
+      this.moreDepartmentsName = "";
+    },
 
     // remove location
     removeLocation(index) {
@@ -430,13 +492,18 @@ export default {
     },
 
     // add location
-    addDepartment() {
+    addDepartment(form) {
+      form.organisationId = this.organisationId;
+      form.console.log(form);
       this.departments.push(this.departmentsName);
     },
 
     // remove department
     removeDepartment(index) {
       this.departments.splice(index, 1);
+    },
+    removeDepartments(index) {
+      this.moreDepartments.splice(index, 1);
     },
 
     // add project manager
