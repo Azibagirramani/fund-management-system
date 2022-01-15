@@ -17,7 +17,11 @@ export default new Router({
   routes: [
     {
       path: "",
-      redirect: "/auth/register",
+      redirect: "/landing",
+    },
+    {
+      path: "/landing",
+      component: () => import("../views/landing.vue"),
     },
     ...AuthRoutes,
     ...OrgRoutes,

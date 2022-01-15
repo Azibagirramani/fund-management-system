@@ -1,7 +1,7 @@
 <template>
   <section class="register">
     <div class="row w-100">
-      <div class="col-md-5 bg-dark vh-100"></div>
+      <div class="col-md-5 bg-primary vh-100 clip-shape"></div>
       <div
         class="col-md-7 vh-100 d-flex align-items-center justify-content-center"
       >
@@ -25,7 +25,9 @@
                   :title="types.title"
                   :icon="types.icons"
                   :checkBox="index === currentIndex ? true : false"
-                  :baseEx="index === currentIndex ? 'card--selected' : ''"
+                  :baseEx="
+                    index === currentIndex ? 'card--selected text-primary' : ''
+                  "
                   @card-index="handleAccountType(index)"
                 />
               </div>
@@ -89,7 +91,8 @@
               id="flexCheckIndeterminate"
             />
             <label class="form-check-label" for="flexCheckIndeterminate">
-              I read and agree to <a href="/#">Terms and Conditions</a>
+              I read and agree to
+              <a href="/#" class="text-primary">Terms and Conditions</a>
             </label>
           </div>
 
@@ -99,10 +102,11 @@
                 <b-spinner variant="light" label="Spinning"></b-spinner>
               </span>
               <span v-else> Sign up </span>
+              Next
             </button>
             <a href="#/" class="text-muted"
               >Already have an account ?
-              <router-link to="/auth"
+              <router-link to="/auth/login"
                 ><span class="text-primary">Sign in</span></router-link
               ></a
             >
@@ -175,9 +179,12 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+.clip-shape {
+  clip-path: polygon(0 0, 100% 0, 70% 50%, 100% 100%, 0 100%, 0% 50%);
+}
 form {
-  width: 25rem;
+  width: 50%;
 }
 
 label {

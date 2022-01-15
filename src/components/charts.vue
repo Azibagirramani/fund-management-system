@@ -1,6 +1,10 @@
 <template>
   <div class="">
-    <VueApexCharts width="500" type="bar" :options="options" :series="series" />
+    <VueApexCharts
+      width="450"
+      :options="computedOptions"
+      :series="computedSeries"
+    />
   </div>
 </template>
 
@@ -11,10 +15,52 @@ export default {
   components: {
     VueApexCharts,
   },
+
+  props: {
+    option: {
+      type: Object,
+      default: () => {},
+    },
+    serie: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  computed: {
+    computedOptions() {
+      return Object.assign(this.options, this.option);
+    },
+    computedSeries() {
+      return this.serie;
+    },
+  },
   data() {
     return {
       options: {
+        dataLabels: {
+          enabled: false,
+        },
+        legend: {
+          show: true,
+        },
+
+        colors: ["#4990FA", "#F24D66", "#55BD78"],
+        noData: {
+          text: undefined,
+          align: "center",
+          verticalAlign: "middle",
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+            color: undefined,
+            fontSize: "14px",
+            fontFamily: undefined,
+          },
+        },
         chart: {
+          toolbar: {
+            show: false,
+          },
           type: "bar",
           id: "vuechart-example",
         },
