@@ -8,7 +8,7 @@
         <form @submit.prevent="handleSignup(form)">
           <h1 class="h3 mb-3 fw-normal text-center">Sign up</h1>
           <p class="fs--1 text-center">
-            Start using FMS and improve fuddnd management.
+            Start using FMS and improve fund management.
           </p>
 
           <div class="my-3">
@@ -21,11 +21,12 @@
                 <AccountCard
                   :title="types.title"
                   :icon="types.icons"
+                  :currentIndex="index"
                   :checkBox="index === currentIndex ? true : false"
                   :baseEx="
                     index === currentIndex ? 'card--selected text-primary' : ''
                   "
-                  @card-index="handleAccountType(index)"
+                  @card-index="handleAccountType"
                 />
               </div>
             </div>
@@ -127,6 +128,7 @@ export default {
       password: "",
       loader: false,
       msg: null,
+      currentAccountType: "",
       currentIndex: null,
       accountTypes: [
         {
@@ -151,7 +153,7 @@ export default {
             lastName: this.lastName,
             email: this.email,
             password: this.password,
-            accountType: 'employee',
+            accountType: this.currentAccountType,
           }
         );
         this.$router.push("/auth/login");
@@ -165,9 +167,9 @@ export default {
       }
     },
 
-    handleAccountType(index) {
-      console.log(index);
-      this.currentIndex = index;
+    handleAccountType(event) {
+      this.currentAccountType = event.title.toLowerCase()
+      this.currentIndex = event.currentIndex
     },
   },
 };

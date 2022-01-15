@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="$emit('card-index', currentIndex)">
+<div class="card" @click="$emit('card-index', {title, currentIndex})">
     <div class="card-body text-center" :class="baseEx">
       <i class="fs-1" :class="icon" aria-hidden="true"></i>
       <input
