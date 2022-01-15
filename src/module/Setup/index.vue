@@ -186,9 +186,14 @@
                 <p class="text-muted">Add Departments</p>
 
                 <div class="input-group mb-3 mt-4">
-                  <form class="w-100" @submit.prevent="submitDepartment(dept)" action=" ">
+                  <form
+                    class="w-100"
+                    @submit.prevent="submitDepartment(dept)"
+                    action=" "
+                  >
                     <label for=""> Select Location </label>
                     {{ dept.departmentsName }}
+
                     <v-select
                       v-model="dept.locationId"
                       label="locationName"
@@ -227,13 +232,15 @@
                       ></span>
                     </div>
 
-                    <button type="submit" class="mt-2 btn btn-primary">Submit</button>
+                    <button type="submit" class="mt-2 btn btn-primary">
+                      Submit
+                    </button>
                   </form>
                 </div>
               </div>
             </tab-content>
             <tab-content title="Add an Employee">
-                <form @submit.prevent="submitEmployee()">
+              <form @submit.prevent="submitEmployee()">
                 <div class="row mt-4">
                   <p class="text-muted">Add Employees</p>
                   <div class="row">
@@ -258,7 +265,6 @@
                           id="companyWebsite"
                           placeholder="Enter company Description"
                           v-model="form.lastName"
-                          required
                         />
                         <label for="companyWebsite">Last Name</label>
                       </div>
@@ -292,6 +298,21 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row mt-3">
+                    <div class="col">
+                      <div class="form-floating mb-3">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="companyWebsite"
+                          placeholder="User Name"
+                          v-model="form.userName"
+                          required
+                        />
+                        <label for="companyWebsite">Location</label>
+                      </div>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col">
                       <div class="form-floating mb-3">
@@ -312,42 +333,36 @@
                           type="text"
                           class="form-control"
                           id="companyWebsite"
-                          placeholder="Enter department ID"
-                          v-model="form.departmentId"
-                          required
-                        />
-                        <label for="companyWebsite">Department ID</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <div class="form-floating mb-3">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="companyWebsite"
                           placeholder="Enter company Description"
                           v-model="form.designation"
                           required
                         />
-                        <label for="companyWebsite">Designation</label>
+                        <label for="companyWebsite">Staff</label>
                       </div>
                     </div>
                     <div class="col">
-                      <div class="form-floating mb-3">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="companyWebsite"
-                          placeholder="Enter Organisation ID"
-                          v-model="form.organisationId"
-                          required
-                        />
-                        <label for="companyWebsite">Organisation ID</label>
-                      </div>
+                      <label for=""> Select Location </label>
+
+                      <v-select
+                        v-model="dept.locationId"
+                        label="locationName"
+                        :options="locations"
+                        @input="getDepartments"
+                      ></v-select>
+                    </div>
+
+                    <div class="col">
+                      <label for=""> Select Department </label>
+
+                      <v-select
+                        v-model="dept.departmentId"
+                        :reduce="(option) => option.locationId"
+                        label="departmentName"
+                        :options="DepartmentNew"
+                      ></v-select>
                     </div>
                   </div>
+
                   <div class="row">
                     <div class="col">
                       <div class="form-floating mb-3">
@@ -357,29 +372,16 @@
                           id="companyWebsite"
                           placeholder="Enter company Description"
                           v-model="form.password"
-                          required
                         />
                         <label for="companyWebsite">Password</label>
                       </div>
                     </div>
-                    <div class="col">
-                      <div class="form-floating mb-3">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="companyWebsite"
-                          placeholder="Enter Organisation ID"
-                          v-model="form.locationId"
-                          required
-                        />
-                        <label for="companyWebsite">Location ID</label>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
 
                 <div class="d-flex gap-4">
-                  <Button title="Submit" ></Button>
+                  <!-- <Button title="Submit"></Button> -->
                   <button type="submit" class="btn btn-primary">Submit</button>
                   <button type="reset" class="btn btn-danger">Clear</button>
                 </div>
@@ -396,10 +398,10 @@
     </div>
   </div>
 </template>
+
 <script>
 //local registration
 import Header from "../../components/header.vue";
-import Button from "../../components/submitButton.vue";
 import { FormWizard, TabContent } from "vue-step-wizard";
 import "vue-step-wizard/dist/vue-step-wizard.css";
 
@@ -408,7 +410,6 @@ export default {
   components: {
     FormWizard,
     TabContent,
-    Button,
     Header,
   },
   data() {
@@ -420,6 +421,7 @@ export default {
       businessLocation: [],
       departmentProfile: false,
       moreDepartments: [],
+      DepartmentNew: [],
       moreDepartmentsName: "",
       departments: [],
       organisationId: "",
@@ -432,41 +434,64 @@ export default {
   },
 
   methods: {
-    async submitEmployee(){
-      console.log(this.form)
+    async submitEmployee() {
+      (this.form.organisationId = this.organisationId),
+        (this.form.departmentId = this.dept.departmentId),
+        (this.form.locationId = this.dept.locationId.locationId),
+        console.log("this employee", this.form);
+      const forSubmit = [];
 
+      forSubmit.push(this.form);
+      const { data } = await this.$axios.post(
+        `/employees/createEmployees`,
+        forSubmit
+      );
+      this.$router.push(`/organisation/dashboard`)
+      console.log("employee info is ", data);
     },
     async submitDepartment(form) {
-     
       const newForm = this.moreDepartments.map((e) => ({
         departmentName: e,
         organisationId: this.organisationId,
         locationId: form.locationId.locationId,
       }));
-  
 
-      const { data } = await this.$axios.post(`departments/createDepartment/`, newForm);
+      const { data } = await this.$axios.post(
+        `departments/createDepartment/`,
+        newForm
+      );
       console.log("response is", data);
-      this.getDepartments()
+      this.getDepartments();
     },
-//     async getDepartments(org,dept){
-// this.$axios.get(`/departments/getDepartment/UXTOPDV97EMJ5C2/1RT7SF811O67A77`)
-//     },
+    async getDepartments(location) {
+      console.log(location.locationId);
+      const { data } = await this.$axios.get(
+        `/departments/getDepartment/${this.organisationId}/${location.locationId}`
+      );
+      this.DepartmentNew = data;
+      console.log("departmets ", data);
+    },
     // handle submit
     onSubmit(form) {
       console.log("Form submitted!", form);
     },
+
     async submitOrganisation(form) {
       form["businessLocation"] = this.businessLocation;
       form["employeeId"] = "CRGBRZ9ZRADP35S";
-      const { data } = await this.$axios.post(`/organisation/createOrganisation`, form);
+      const { data } = await this.$axios.post(
+        `/organisation/createOrganisation`,
+        form
+      );
       this.organisationId = data.id;
-      this.getLocations(data.id);
+      this.getLocations();
       this.form = {};
       console.log("oragnisation is ", data);
     },
-    async getLocations(e) {
-      const { data } = await this.$axios.get(`/business/getBusinessLocation/${e}`);
+    async getLocations() {
+      const { data } = await this.$axios.get(
+        `/business/getBusinessLocation/${this.organisationId}`
+      );
       this.locations = data;
       console.log("locastion are", data);
     },
@@ -523,9 +548,11 @@ export default {
 .input-group-text {
   height: 3.55rem;
 }
+
 i {
   cursor: pointer;
 }
+
 .vue-step-wizard {
   width: 100% !important;
   background-color: transparent !important;

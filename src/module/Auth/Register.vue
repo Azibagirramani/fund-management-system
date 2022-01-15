@@ -10,9 +10,6 @@
           <p class="fs--1 text-center">
             Start using FMS and improve fuddnd management.
           </p>
-          <span class="text-danger">
-            {{msg}}
-          </span>
 
           <div class="my-3">
             <div class="row">
@@ -98,10 +95,6 @@
 
           <div class="text-center mt-2">
             <button class="w-100 my-3 btn btn-lg text-white" type="submit">
-              <span v-if="loader">
-                <b-spinner variant="light" label="Spinning"></b-spinner>
-              </span>
-              <span v-else> Sign up </span>
               Next
             </button>
             <a href="#/" class="text-muted"
@@ -158,6 +151,7 @@ export default {
             lastName: this.lastName,
             email: this.email,
             password: this.password,
+            accountType: 'employee',
           }
         );
         this.$router.push("/auth/login");
