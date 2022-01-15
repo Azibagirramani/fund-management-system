@@ -1,10 +1,15 @@
 <template>
   <div class="row w-100">
     <div class="col-md-5 vh-100 bg-dark"></div>
-    <div class="col-md-7 vh-100 d-flex align-items-center justify-content-center">
+    <div
+      class="col-md-7 vh-100 d-flex align-items-center justify-content-center"
+    >
       <form @submit.prevent>
         <h1 class="h3 mb-3 fw-normal text-center">Sign in</h1>
         <p class="text-center">Welcome back! We are happy you like FMS</p>
+        <span class="text-danger">
+          {{ msg }}
+        </span>
         <div class="form-floating mb-3">
           <input
             v-model="user.email"
@@ -29,7 +34,10 @@
         <div class="text-center mt-3">
           <a href="#/" class="float-end text-muted">Forgot password ?</a>
           <button class="w-100 my-3 btn btn-lg text-white" @click="login">
-            Continue
+            <span v-if="loading">
+              <b-spinner variant="light" label="Spinning"></b-spinner>
+            </span>
+            <span v-else> Continue </span>
           </button>
           <a href="#/" class="text-muted"
             >Dont't have an account yet?
@@ -52,6 +60,7 @@ export default {
     return {
       loading: false,
       error: "",
+      msg: "",
       user: {
         email: "",
         password: "",
@@ -72,6 +81,7 @@ export default {
           this.$router.push("/organisation/setup");
         }
       } catch (error) {
+        this.msg = "something went wrong";
         this.error = "something went wrong";
       } finally {
         this.loading = false;
