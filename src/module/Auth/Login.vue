@@ -1,6 +1,6 @@
 <template>
   <div class="row w-100">
-    <div class="col-md-5 vh-100 bg-dark"></div>
+    <div class="col-md-5 vh-100 bg-primary clip-shape"></div>
     <div
       class="col-md-7 vh-100 d-flex align-items-center justify-content-center"
     >
