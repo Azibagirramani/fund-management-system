@@ -6,10 +6,10 @@
     <div class="position-sticky pt-3">
       <ul class="nav flex-column">
         <li class="nav-item" v-for="(urls, index) in urls" :key="index">
-          <a class="nav-link" aria-current="page" href="#">
+          <router-link :to="urls.path" class="nav-link">
             <i :class="urls.icon" aria-hidden="true"></i>
             {{ urls.name }}
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -24,22 +24,22 @@ export default {
         {
           icon: "fa fa-tachometer",
           name: "Dashboard",
-          path: "/demo",
+          path: "/dashboard",
         },
         {
           icon: "fa fa-money",
           name: "Funds",
-          path: "/demo",
+          path: "/dashboard/funds",
         },
         {
           icon: "fa fa-list",
           name: "Projects",
-          path: "/demo",
+          path: "/dashboard/projects",
         },
         {
           icon: "fa fa-cog",
           name: "Settings",
-          path: "/demo",
+          path: "/dashboard/settings",
         },
       ],
     };
