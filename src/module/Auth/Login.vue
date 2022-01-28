@@ -1,6 +1,13 @@
 <template>
   <div class="row w-100">
-    <div class="col-md-5 vh-100 bg-primary clip-shape"></div>
+    <div class="col-md-5 vh-100 bg-primary clip-shape">
+      <img
+        src="../../assets/img/fusionERP_logo.png"
+        alt="logo"
+        width="300"
+        height="80"
+      />
+    </div>
     <div
       class="col-md-7 vh-100 d-flex align-items-center justify-content-center"
     >
@@ -77,8 +84,23 @@ export default {
         );
         localStorage.setItem("fms-jwt", response.data.jwtToken);
         localStorage.setItem("fms-employeeId", response.data.employerId);
-        if (response.status === 200) {
+        localStorage.setItem(
+          "fms-organisationId",
+          response.data.organisationId
+        );
+        if (!response.data.organisationId) {
           this.$router.push("/organisation/setup");
+        } else {
+          try {
+            const { data } = await this.$axios.get(
+              `/organisation/displayOrganisation/${response.data.organisationId}`
+            );
+            this.$store.commit("organisation/CHANGEORG", data);
+          } catch (error) {
+            console.error(error);
+          }
+
+          this.$router.push("/dashboard");
         }
       } catch (error) {
         this.msg = "something went wrong";

@@ -376,7 +376,6 @@
                         <label for="companyWebsite">Password</label>
                       </div>
                     </div>
-                    
                   </div>
                 </div>
 
@@ -446,7 +445,7 @@ export default {
         `/employees/createEmployees`,
         forSubmit
       );
-      this.$router.push(`/organisation/dashboard`)
+      this.$router.push(`/dashboard`);
       console.log("employee info is ", data);
     },
     async submitDepartment(form) {
@@ -463,10 +462,10 @@ export default {
       console.log("response is", data);
       this.getDepartments();
     },
-    async getDepartments(location) {
-      console.log(location.locationId);
+    async getDepartments() {
+      console.log(this.dept);
       const { data } = await this.$axios.get(
-        `/departments/getDepartment/${this.organisationId}/${location.locationId}`
+        `/departments/getDepartment/${this.organisationId}/${this.dept.locationId.locationId}`
       );
       this.DepartmentNew = data;
       console.log("departmets ", data);
@@ -478,7 +477,7 @@ export default {
 
     async submitOrganisation(form) {
       form["businessLocation"] = this.businessLocation;
-      form["employeeId"] = "CRGBRZ9ZRADP35S";
+      form["employeeId"] = localStorage.getItem('fms-employeeId');
       const { data } = await this.$axios.post(
         `/organisation/createOrganisation`,
         form
@@ -487,6 +486,20 @@ export default {
       this.getLocations();
       this.form = {};
       console.log("oragnisation is ", data);
+      this.getOrganisation();
+    },
+    async getOrganisation() {
+      try {
+        const { data } = await this.$axios.get(
+          `/organisation/displayOrganisation/${this.organisationId}`
+        );
+        console.log("org data is ", data);
+        this.$store.commit("organisation/CHANGEORG", data);
+
+        this.$store.commit;
+      } catch (error) {
+        console.log(error);
+      }
     },
     async getLocations() {
       const { data } = await this.$axios.get(

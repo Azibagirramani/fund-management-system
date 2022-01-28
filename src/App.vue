@@ -16,7 +16,7 @@ export default {
 
 button {
   border-radius: 0 !important;
-  background-color: #3d8116 !important;
+  background-color: #164181 !important;
 }
 
 input [type="checkbox"] {

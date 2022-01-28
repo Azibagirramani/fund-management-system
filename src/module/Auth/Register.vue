@@ -147,7 +147,7 @@ export default {
       this.loader = true;
       try {
         await axios.post(
-          `https://fms-backend-v1.herokuapp.com/api/v1/users/createUser`,
+          `https://fusion-erp.herokuapp.com/api/v1/users/createUser`,
           {
             firstName: this.firstName,
             lastName: this.lastName,

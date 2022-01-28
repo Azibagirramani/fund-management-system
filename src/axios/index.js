@@ -1,6 +1,6 @@
 import axois from "axios";
 
-const baseurl = "https://fms-backend-v1.herokuapp.com/api/v1/";
+const baseurl = "https://fms-backend-v1.herokuapp.com/api/v1";
 
 const axios = axois.create({
   baseURL: baseurl,

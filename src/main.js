@@ -7,6 +7,7 @@ import VCalendar from "v-calendar";
 import axios from "@/axios";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+import store from "./store";
 
 // Set base URL
 // axios.defaults.baseURL = 'https://fms-backend-v1.herokuapp.com/api/v1'
@@ -29,5 +30,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  store,
   render: (h) => h(App),
 }).$mount("#app");

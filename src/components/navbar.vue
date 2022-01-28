@@ -32,6 +32,11 @@ export default {
           path: "/dashboard/funds",
         },
         {
+          icon: "fa fa-users",
+          name: "Employees",
+          path: "/dashboard/employees",
+        },
+        {
           icon: "fa fa-list",
           name: "Projects",
           path: "/dashboard/projects",

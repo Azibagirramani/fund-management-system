@@ -2,11 +2,11 @@
   <header
     class="navbar p-2 navbar-dark sticky-top bg-white flex-md-nowrap p-0 shadow-sm"
   >
-    <a
-      class="col-md-3 col-lg-2 me-0 px-3 text-dark badge rounded-pill bg-primary text-white bg-primary fs-6"
-      href="#"
-      >Show organisation name</a
+    <p
+      class="p-2 me-0 text-dark badge rounded-pill bg-primary text-white bg-primary fs-6"
     >
+      {{ orgName }}
+    </p>
 
     <div class="navbar-nav">
       <div class="d-flex align-items-center">
@@ -16,7 +16,7 @@
           alt="..."
         />
 
-        <div class="nav-item text-nowrap">
+        <div class="nav-item text-nowrap" @click="logout">
           <a class="nav-link px-3 text-dark" href="#">Sign out</a>
         </div>
       </div>
@@ -25,7 +25,21 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    orgName() {
+      return this.$store.state.organisation.org.organisationName;
+    },
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("fms-jwt");
+      localStorage.removeItem("fms-employeeId");
+      localStorage.removeItem("fms-organisationId");
+      this.$router.push("/auth/login");
+    },
+  },
+};
 </script>
 
 <style lang="css" scoped>

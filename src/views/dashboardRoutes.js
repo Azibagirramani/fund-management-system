@@ -15,6 +15,11 @@ export default [
         component: () => import("@/views/funds.vue"),
       },
       {
+        path: "employees",
+        name: "employees",
+        component: () => import("@/views/employees.vue"),
+      },
+      {
         path: "projects",
         name: "projects",
         component: () => import("@/views/projects.vue"),

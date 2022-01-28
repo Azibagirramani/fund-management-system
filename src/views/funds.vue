@@ -17,6 +17,7 @@
       <div class="card-body">
         <BaseTable />
       </div>
+      <b-button @click="runit">click me</b-button>
     </div>
 
     <BaseModal ref="showModal" :title="'Fund request'">
@@ -107,6 +108,10 @@ export default {
   },
 
   methods: {
+    runit() {
+      this.$store.commit("organisation/increment");
+      console.log(this.$store.state.organisation.count, this.$store);
+    },
     showForm() {
       this.$refs.showModal.showModal();
     },
