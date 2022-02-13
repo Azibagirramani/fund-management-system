@@ -40,12 +40,12 @@
 
         <div class="text-center mt-3">
           <a href="#/" class="float-end text-muted">Forgot password ?</a>
-          <button class="w-100 my-3 btn btn-lg text-white" @click="login">
+          <b-button class="w-100 my-3 btn btn-lg text-white" @click="login">
             <span v-if="loading">
               <b-spinner variant="light" label="Spinning"></b-spinner>
             </span>
             <span v-else> Continue </span>
-          </button>
+          </b-button>
           <a href="#/" class="text-muted"
             >Dont't have an account yet?
             <router-link to="/auth/register"

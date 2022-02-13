@@ -1,12 +1,5 @@
 <template>
-  <b-modal
-    id="modal-center"
-    hide-footer
-    :title="title"
-    size="lg"
-    centered
-    ref="modal"
-  >
+  <b-modal ref="modal" :id="id" hide-footer :title="title" size="lg" centered >
     <slot></slot>
   </b-modal>
 </template>
@@ -18,6 +11,12 @@ export default {
     "b-modal": BModal,
   },
   props: {
+    id: {
+      type: String,
+      required: true,
+      default: "modal-center",
+    },
+
     show: {
       type: Boolean,
       default: false,
@@ -27,6 +26,7 @@ export default {
       default: "default",
     },
   },
+
   methods: {
     showModal() {
       this.$refs.modal.show();

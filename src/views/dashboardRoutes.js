@@ -23,6 +23,18 @@ export default [
         path: "projects",
         name: "projects",
         component: () => import("@/views/projects.vue"),
+        children: [
+          {
+            path: "add",
+            name: "projectAdd",
+            component: () => import("@/views/pages/projects/add.vue"),
+          },
+          {
+            path: "/",
+            name: "projectAdd",
+            component: () => import("@/views/pages/projects/index.vue"),
+          },
+        ],
       },
       {
         path: "settings",

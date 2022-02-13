@@ -8,6 +8,8 @@ import axios from "@/axios";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import store from "./store";
+import TableWrapper from "@/components/TableWrapper";
+import { Icon } from "@iconify/vue2";
 
 // Set base URL
 // axios.defaults.baseURL = 'https://fms-backend-v1.herokuapp.com/api/v1'
@@ -25,6 +27,8 @@ Vue.use(BootstrapVueIcons);
 
 Vue.use(BootstrapVue);
 Vue.use(VueSweetalert2);
+Vue.component("TableWrapper", TableWrapper);
+Vue.component("Icon", Icon);
 
 Vue.config.productionTip = false;
 

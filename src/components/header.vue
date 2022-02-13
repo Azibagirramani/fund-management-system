@@ -17,7 +17,7 @@
         />
 
         <div class="nav-item text-nowrap" @click="logout">
-          <a class="nav-link px-3 text-dark" href="#">Sign out</a>
+          <a class="nav-link px-3 text-dark" >Sign out</a>
         </div>
       </div>
     </div>
